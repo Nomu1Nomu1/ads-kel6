@@ -29,12 +29,12 @@ def insertion(data):
     return data
 
 def merge_srt(data):
-    if len(data) < 1:
+    if len(data) <= 1:
         return data
     mid = len(data) // 2
     left = merge_srt(data[:mid])
     right = merge_srt(data[mid:])
-    return merge_srt(left, right)
+    return merge(left, right)
 
 def merge(left, right):
     result = []
@@ -64,7 +64,7 @@ def binary(data, target):
             low = mid + 1
     return -1
 
-def binary(data, target):
+def binary_nim(data, target):
     low, high = 0, len(data) - 1
     while low <= high:
         mid = (low + high) // 2
@@ -85,7 +85,9 @@ def show_data(data):
     print()
     
 def search_class(data, kelas):
-    result = [mhs for mhs in data if mhs["kelas"].lower() == kelas.lower()]
+    kelas = kelas.strip().upper()
+    full = f"TI-{kelas}"
+    result = [mhs for mhs in data if mhs["kelas"].lower() == full.lower()]
     if result:
         print(f"\nMahasiswa di kelas {kelas.upper()}:")
         for m in result:
@@ -94,10 +96,61 @@ def search_class(data, kelas):
         print(f"Tidak ada mahasiswa di kelas {kelas}")
 
 # Excec
-def menu():
-    show = show_data(mahasiswa)
-    
+while True:
+    print("\n=== MENU ANALISIS NILAI MAHASISWA ===")
+    print("1. Tampilkan Data Mahasiswa")
+    print("2. Urutkan Nilai (Insertion Sort)")
+    print("3. Urutkan Nilai (Merge Sort)")
+    print("4. Cari Mahasiswa Berdasarkan Nilai")
+    print("5. Cari Mahasiswa Berdasarkan NIM")
+    print("6. Tampilkan Mahasiswa Berdasarkan Kelas")
+    print("0. Keluar")
+
+    pilih = input("Pilih menu (1-6): ")
+
+    if pilih == "1":
+        show_data(mahasiswa)
+    elif pilih == "2":
+        mahasiswa = insertion(mahasiswa)
+        print("\nData telah diurutkan (Insertion Sort - Ranking):")
+        show_data(mahasiswa)
+
+    elif pilih == "3":
+        mahasiswa = merge_srt(mahasiswa)
+        print("\nData telah diurutkan (Merge Sort - Ranking):")
+        show_data(mahasiswa)
+
+    elif pilih == "4":
+        nilai = int(input("Masukkan nilai yang dicari: "))
+        hasil = binary(mahasiswa, nilai)
+        if hasil != -1:
+            m = mahasiswa[hasil]
+            print(f"Mahasiswa dengan nilai {nilai}: {m['nama']} ({m['nim']}) kelas {m['kelas']}")
+        else:
+            print("Nilai tidak ditemukan!")
+
+    elif pilih == "5":
+        nim = input("Masukkan NIM yang dicari: ")
+        mahasiswa_nim_sorted = sorted(mahasiswa, key=lambda x: x["nim"])
+        hasil = binary_nim(mahasiswa_nim_sorted, nim)
+        if hasil != -1:
+            m = mahasiswa_nim_sorted[hasil]
+            print(f"Mahasiswa ditemukan: {m['nama']} (Kelas {m['kelas']}, Nilai {m['nilai']})")
+        else:
+            print("NIM tidak ditemukan!")
+
+    elif pilih == "6":
+        kelas = input("Masukkan kelas (A/B/C): ")
+        search_class(mahasiswa, kelas)
+
+    elif pilih == "0":
+        print("Terima kasih")
+        break
+
+    else:
+        print("Invalid")
+
     
             
-if __name__ == "__main__":
-    menu()
+# if __name__ == "__main__":
+#     menu()
