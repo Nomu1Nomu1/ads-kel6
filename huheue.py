@@ -1,5 +1,3 @@
-from typing import List, Dict
-
 # data
 mhs = [
     {"nama": "Ayu Lestari", "nim": "V2301001", "kelas": "TI-A", "nilai": 88},
@@ -20,63 +18,86 @@ mhs = [
 ]
 
 # Sort
-def insertion(data: List[Dict], key: str, reverse = False) -> List[Dict]:
-    arr = data.copy()
-    for i in range(1, len(arr)):
-        current = arr[i]
+def insertion(data):
+    for i in range (1, len(data)):
+        key = data[i]
         j = i - 1
-        while j >= 0 and ((arr[j][key] > current[key] ^ reverse)):
-            arr[j + 1] = arr[j]
+        while j >= 0 and data[j]["nilai"] < key["nilai"]:
+            data[j + 1] = data[j]
             j -= 1
-        arr[j + 1] = current
-    return arr
+        data[j + 1] = key
+    return data
 
-def merge_srt(data: List[Dict], key: str, reverse = False) -> List[Dict]:
+def merge_srt(data):
     if len(data) < 1:
         return data
     mid = len(data) // 2
-    left = merge_srt(data[:mid], key, reverse)
-    right = merge_srt(data[mid:], key, reverse)
-    return merge_srt(left, right, key, reverse)
+    left = merge_srt(data[:mid])
+    right = merge_srt(data[mid:])
+    return merge_srt(left, right)
 
-def merge(left, right, key, reverse):
+def merge(left, right):
     result = []
-    while left and right:
-        if (left[0][key] <= right[0][key]) ^ reverse:
-            result.append(left.pop(0))
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i]["nilai"] > right[j]["nilai"]:
+            result.append(left[i])
+            i += 1
         else:
-            result.append(right.pop(0))
-    result.extend(left if left else right)
+            result.append(right[j])
+            j += 1
+            
+    result.extend(left[i:])
+    result.extend(right[j:])
     return result
 
 # Algotihm
-def binary(data: List[Dict], target, key: str):
-    left, right = 0, len(data) - 1
-    while left <= right:
-        mid = (left + right) // 2
-        if data[mid][key] == right:
-            return data[mid]
-        elif data[mid][key] < target:
-            left = mid + 1
+def binary(data, target):
+    low, high = 0, len(data) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if data[mid]["nilai"] == target:
+            return mid
+        elif data[mid]["nilai"] < target:
+            high = mid - 1
         else:
-            right = mid - 1
-    return None
+            low = mid + 1
+    return -1
+
+def binary(data, target):
+    low, high = 0, len(data) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if data[mid]["nim"] == target:
+            return mid
+        elif data[mid]["nim"] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return -1
 
 # utility
-def show_data(data: List[Dict]):
+def show_data(data):
     print("\n{:<4} {:<20} {:<10} {:<8} {:<6}".format("No", "Nama", "NIM", "Kelas", "Nilai"))
     print("=" * 55)
     for i, mhs in enumerate(data, 1):
         print(f"{i:<4} {mhs['nama']:<20} {mhs['nim']:<10} {mhs['kelas']:<8} {mhs['nilai']:<6}")
     print()
     
-def search_class(data: List[Dict], kelas: str):
-    return [m for m in data if m["kelas"].upper() == kelas.upper()]
-
-def search_name(data: List[Dict], keyword: str):
-    return [m for m in data if keyword.lower() in m["nama"].lower()]
+def search_class(data, kelas):
+    result = [mhs for mhs in data if mhs["kelas"].lower() == kelas.lower()]
+    if result:
+        print(f"\nMahasiswa di kelas {kelas.upper()}:")
+        for m in result:
+            print(f"- {m['nama']} ({m['nim']})")
+    else:
+        print(f"Tidak ada mahasiswa di kelas {kelas}")
 
 # Excec
 def menu():
     data_sort = insertion(mhs, "nilai", reverse=True)
     
+    
+            
+if __name__ == "__main__":
+    menu()
