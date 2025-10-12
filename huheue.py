@@ -1,5 +1,5 @@
 # data
-mhs = [
+mahasiswa = [
     {"nama": "Ayu Lestari", "nim": "V2301001", "kelas": "TI-A", "nilai": 88},
     {"nama": "Budi Santoso", "nim": "V2301002", "kelas": "TI-A", "nilai": 74},
     {"nama": "Citra Dewi", "nim": "V2301003", "kelas": "TI-A", "nilai": 91},
@@ -95,7 +95,7 @@ def search_class(data, kelas):
 
 # Excec
 def menu():
-    data_sort = insertion(mhs, "nilai", reverse=True)
+    show = show_data(mahasiswa)
     
     
             
