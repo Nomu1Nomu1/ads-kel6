@@ -75,7 +75,15 @@ def search_class(data, kelas):
 # I/O & UI
     
 def main():
-    while True
+    while True:
+        print("\n=== MENU NILAI MAHASISWA ===")
+        print("1. Tampilkan Data Mahasiswa")
+        print("2. Urutkan Nilai (Insertion Sort)")
+        print("3. Urutkan Nilai (Merge Sort)")
+        print("4. Cari Mahasiswa Berdasarkan Nilai")
+        print("5. Cari Mahasiswa Berdasarkan NIM")
+        print("6. Tampilkan Mahasiswa Berdasarkan Kelas")
+        print("0. Keluar")
 
 if __name__ == '__main__':
     main()
