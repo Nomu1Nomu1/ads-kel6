@@ -19,14 +19,46 @@ mahasiswa = [
 
 # Insertion sort
 def insertion(data):
+    data = data.copy()
+    for i in range(1, len(data)):
+        key = data[i]
+        j = i - 1
+        # Geser elemen yang nilainya lebih kecil ke kanan
+        while j >= 0 and data[j]["nilai"] < key["nilai"]:
+            data[j + 1] = data[j]
+            j -= 1
+        data[j + 1] = key
     return data
+
 
 # Merge sort
 def merge_srt(data):
-    return 
+    if len(data) <= 1:
+        return data
+
+    mid = len(data) // 2
+    left = merge_srt(data[:mid])
+    right = merge_srt(data[mid:])
+    return merge(left, right)
+
 
 def merge(left, right):
-    return
+    result = []
+    i = j = 0
+
+    # Gabungkan dua list secara descending (nilai terbesar dulu)
+    while i < len(left) and j < len(right):
+        if left[i]["nilai"] >= right[j]["nilai"]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+
+    # Tambahkan sisa elemen jika ada
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
 
 # Binary
 def binary(data, target):
