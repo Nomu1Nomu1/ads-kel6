@@ -24,7 +24,7 @@ def insertion(data):
         key = data[i]
         j = i - 1
  
-        while j >= 0 and data[j]["nilai"] < key["nilai"]:
+        while j >= 0 and data[j]["nilai"] > key["nilai"]:
             data[j + 1] = data[j]
             j -= 1
         data[j + 1] = key
@@ -109,8 +109,8 @@ def main():
     while True:
         print("\n=== MENU NILAI MAHASISWA ===")
         print("1. Tampilkan Data Mahasiswa")
-        print("2. Urutkan Nilai (Insertion Sort)")
-        print("3. Urutkan Nilai (Merge Sort)")
+        print("2. Urutkan Nilai Terendah (Insertion Sort)")
+        print("3. Urutkan Nilai Tertinggi (Merge Sort)")
         print("4. Cari Mahasiswa Berdasarkan Nilai")
         print("5. Cari Mahasiswa Berdasarkan NIM")
         print("6. Tampilkan Mahasiswa Berdasarkan Kelas")
@@ -122,7 +122,7 @@ def main():
             show_data(data)
         elif pilih == "2":
             data = insertion(data)
-            print("\nData telah diurutkan (Insertion Sort - Ranking):")
+            print("\nData telah diurutkan (Insertion Sort):")
             show_data(data)
 
         elif pilih == "3":
