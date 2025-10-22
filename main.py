@@ -72,12 +72,15 @@ def binary(data, target):
     return -1
 
 def binary_nim(data, target):
+    target = target.upper()
     low, high = 0, len(data) - 1
     while low <= high:
         mid = (low + high) // 2
-        if data[mid]["nim"] == target:
+        mid_nim = data[mid]["nim"].upper()
+        
+        if mid_nim == target:
             return mid
-        elif data[mid]['nim'] < target:
+        elif mid_nim < target:
             low = mid + 1
         else:
             high = mid - 1
